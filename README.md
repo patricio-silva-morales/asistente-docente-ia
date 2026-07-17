@@ -777,22 +777,9 @@ No se recomienda todavía como sistema definitivo para producción o para evalua
 
 ## Licencia
 
-Antes de publicar el repositorio, define la licencia que deseas utilizar.
-
-Una opción habitual para proyectos abiertos es MIT:
-
 ```text
 MIT License
 ```
-
-También debes revisar las licencias y condiciones de uso de:
-
-- faster-whisper
-- Whisper
-- CTranslate2
-- Silero VAD
-- Ollama
-- Qwen 2.5
 
 ---
 
@@ -800,13 +787,11 @@ También debes revisar las licencias y condiciones de uso de:
 
 Desarrollado como MVP educativo para explorar el uso de inteligencia artificial local en clases virtuales.
 
-Puedes agregar aquí:
-
 ```text
-Nombre:
-Sitio web:
-LinkedIn:
-Correo:
+Nombre: Patricio Silva Morales
+Sitio web: https://www.giat.cl/
+LinkedIn: https://www.linkedin.com/in/patricio-silva-morales-909b00240/
+Correo: patricio.silva.morales@hotmail.com | psilv531@gmail.com
 ```
 
 ---
