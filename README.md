@@ -140,6 +140,15 @@ La carpeta `audios_temporales` se utiliza solamente durante el procesamiento. Lo
 
 ---
 
+## Capturas
+
+<img width="1900" height="827" alt="image" src="https://github.com/user-attachments/assets/cf3b719d-293a-45b9-bb66-5f9d66585953" />
+
+<img width="1901" height="812" alt="image" src="https://github.com/user-attachments/assets/515e6d13-7c74-473f-91d6-c02394f35484" />
+
+
+---
+
 ## Requisitos
 
 Antes de ejecutar la aplicación, debes tener instalado:
