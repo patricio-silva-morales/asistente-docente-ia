@@ -112,7 +112,7 @@ La aplicación muestra en pantalla:
 ┌────────────────────────┐   ┌────────────────────────┐
 │ faster-whisper         │   │ Ollama                 │
 │                        │   │                        │
-│ Transcripción local    │   │ Clasificación         │
+│ Transcripción local    │   │ Clasificación          │
 │ Detección de silencios │   │ Generación de respuesta│
 └────────────────────────┘   └────────────────────────┘
 ```
