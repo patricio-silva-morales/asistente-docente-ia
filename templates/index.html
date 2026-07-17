@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Asistente docente</title>
+
+    <link
+        rel="stylesheet"
+        href="{{ url_for('static', filename='styles.css') }}"
+    >
+</head>
+
+<body>
+    <main class="contenedor">
+        <header class="encabezado">
+            <div>
+                <span class="etiqueta">
+                    WHISPER + OLLAMA
+                </span>
+
+                <h1>Asistente docente</h1>
+
+                <p class="descripcion">
+                    Transcribe una clase, identifica las preguntas
+                    de los estudiantes y genera respuestas breves.
+                </p>
+            </div>
+
+            <div
+                id="estado"
+                class="estado estado-detenido"
+            >
+                Detenido
+            </div>
+        </header>
+
+        <section class="panel panel-controles">
+            <div class="botones">
+                <button
+                    id="btnIniciar"
+                    class="boton boton-principal"
+                    type="button"
+                >
+                    Iniciar captura
+                </button>
+
+                <button
+                    id="btnDetener"
+                    class="boton boton-secundario"
+                    type="button"
+                    disabled
+                >
+                    Detener
+                </button>
+
+                <button
+                    id="btnLimpiar"
+                    class="boton boton-secundario"
+                    type="button"
+                >
+                    Limpiar todo
+                </button>
+            </div>
+
+            <div class="grupo-configuraciones">
+                <div class="configuracion configuracion-tema">
+                    <label for="temaClase">
+                        Tema de la clase
+                    </label>
+
+                    <input
+                        id="temaClase"
+                        type="text"
+                        value="Programación en Python"
+                        placeholder="Ejemplo: Ciclos en Python"
+                    >
+                </div>
+
+                <div class="configuracion">
+                    <label for="fuenteAudio">
+                        Fuente de audio
+                    </label>
+
+                    <select id="fuenteAudio">
+                        <option value="pantalla">
+                            Pestaña o pantalla
+                        </option>
+
+                        <option value="microfono">
+                            Micrófono
+                        </option>
+                    </select>
+                </div>
+
+                <div class="configuracion">
+                    <label for="duracionFragmento">
+                        Duración del fragmento
+                    </label>
+
+                    <select id="duracionFragmento">
+                        <option value="8000">
+                            8 segundos
+                        </option>
+
+                        <option value="12000">
+                            12 segundos
+                        </option>
+
+                        <option value="15000" selected>
+                            15 segundos
+                        </option>
+                    </select>
+                </div>
+            </div>
+        </section>
+
+        <section
+            id="mensaje"
+            class="mensaje mensaje-informativo"
+        >
+            Selecciona la fuente de audio y presiona
+            «Iniciar captura».
+        </section>
+
+        <section class="resumen">
+            <article class="tarjeta-resumen">
+                <span>Procesados</span>
+                <strong id="resumenProcesados">0</strong>
+            </article>
+
+            <article class="tarjeta-resumen">
+                <span>Pendientes</span>
+                <strong id="resumenPendientes">0</strong>
+            </article>
+
+            <article class="tarjeta-resumen tarjeta-preguntas">
+                <span>Preguntas</span>
+                <strong id="resumenPreguntas">0</strong>
+            </article>
+        </section>
+
+        <section class="columnas">
+            <article class="panel panel-contenido">
+                <div class="cabecera-panel">
+                    <div>
+                        <h2>Preguntas detectadas</h2>
+
+                        <p>
+                            Preguntas identificadas mediante reglas
+                            y clasificación local.
+                        </p>
+                    </div>
+
+                    <span
+                        id="contadorPreguntas"
+                        class="contador contador-preguntas"
+                    >
+                        0 preguntas
+                    </span>
+                </div>
+
+                <div
+                    id="listaPreguntas"
+                    class="lista-preguntas"
+                    aria-live="polite"
+                >
+                    <div class="contenido-vacio">
+                        <span class="icono-vacio">?</span>
+
+                        <p>
+                            Las preguntas aparecerán aquí.
+                        </p>
+                    </div>
+                </div>
+
+                <footer class="pie-panel">
+                    <span>
+                        Puedes eliminar falsos positivos.
+                    </span>
+
+                    <div class="acciones-transcripcion">
+                        <button
+                            id="btnCopiarPreguntas"
+                            class="boton-texto"
+                            type="button"
+                        >
+                            Copiar
+                        </button>
+
+                        <button
+                            id="btnDescargarPreguntas"
+                            class="boton-texto"
+                            type="button"
+                        >
+                            Descargar
+                        </button>
+                    </div>
+                </footer>
+            </article>
+
+            <article class="panel panel-contenido">
+                <div class="cabecera-panel">
+                    <div>
+                        <h2>Transcripción completa</h2>
+
+                        <p id="informacionCaptura">
+                            La captura está detenida.
+                        </p>
+                    </div>
+
+                    <div class="indicadores">
+                        <span id="fragmentosPendientes">
+                            0 pendientes
+                        </span>
+
+                        <span id="contadorFragmentos">
+                            0 procesados
+                        </span>
+                    </div>
+                </div>
+
+                <div
+                    id="textoTranscripcion"
+                    class="texto-transcripcion"
+                    aria-live="polite"
+                >
+                    <div class="contenido-vacio">
+                        <p>
+                            La transcripción aparecerá aquí.
+                        </p>
+                    </div>
+                </div>
+
+                <footer class="pie-panel">
+                    <span id="actividad">
+                        Esperando inicio de captura
+                    </span>
+
+                    <div class="acciones-transcripcion">
+                        <button
+                            id="btnCopiar"
+                            class="boton-texto"
+                            type="button"
+                        >
+                            Copiar
+                        </button>
+
+                        <button
+                            id="btnDescargar"
+                            class="boton-texto"
+                            type="button"
+                        >
+                            Descargar TXT
+                        </button>
+                    </div>
+                </footer>
+            </article>
+        </section>
+    </main>
+
+    <script
+        src="{{ url_for('static', filename='app.js') }}"
+    ></script>
+</body>
+</html>
