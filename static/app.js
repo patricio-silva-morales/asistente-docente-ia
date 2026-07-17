@@ -1034,6 +1034,29 @@ function mostrarPregunta(pregunta) {
     informacion.appendChild(numero);
     informacion.appendChild(hora);
 
+    /*
+     * Contenedor para los botones Editar y Eliminar.
+     */
+    const accionesPregunta =
+        document.createElement("div");
+
+    accionesPregunta.className =
+        "pregunta-acciones";
+
+    /*
+     * Botón Editar.
+     */
+    const botonEditar =
+        document.createElement("button");
+
+    botonEditar.type = "button";
+    botonEditar.className =
+        "boton-editar-pregunta";
+    botonEditar.textContent = "Editar";
+
+    /*
+     * Botón Eliminar.
+     */
     const botonEliminar =
         document.createElement("button");
 
@@ -1051,12 +1074,32 @@ function mostrarPregunta(pregunta) {
         }
     );
 
+    accionesPregunta.appendChild(botonEditar);
+    accionesPregunta.appendChild(botonEliminar);
+
     cabecera.appendChild(informacion);
-    cabecera.appendChild(botonEliminar);
+    cabecera.appendChild(accionesPregunta);
 
     const texto = document.createElement("p");
     texto.className = "pregunta-texto";
     texto.textContent = pregunta.texto;
+
+    /*
+     * Activa el editor dentro de la tarjeta.
+     */
+    botonEditar.addEventListener(
+        "click",
+        () => {
+            activarEdicionPregunta(
+                pregunta,
+                {
+                    tarjeta,
+                    texto,
+                    accionesPregunta
+                }
+            );
+        }
+    );
 
     const confianza = document.createElement("span");
     confianza.className = "pregunta-confianza";
@@ -1111,9 +1154,11 @@ function mostrarPregunta(pregunta) {
     contenedorRespuesta.appendChild(
         etiquetaRespuesta
     );
+
     contenedorRespuesta.appendChild(
         textoRespuesta
     );
+
     contenedorRespuesta.appendChild(
         botonRegenerar
     );
@@ -1127,6 +1172,8 @@ function mostrarPregunta(pregunta) {
 
     return {
         tarjeta,
+        texto,
+        accionesPregunta,
         textoRespuesta,
         botonRegenerar
     };
@@ -1217,6 +1264,168 @@ async function generarRespuesta(
     }
 }
 
+function activarEdicionPregunta(
+    pregunta,
+    elementos
+) {
+    const {
+        tarjeta,
+        texto,
+        accionesPregunta
+    } = elementos;
+
+    /*
+     * Evita abrir nuevamente el editor
+     * si la pregunta ya está siendo editada.
+     */
+    if (
+        !pregunta ||
+        !tarjeta ||
+        !texto ||
+        tarjeta.classList.contains("editando")
+    ) {
+        return;
+    }
+
+    tarjeta.classList.add("editando");
+
+    /*
+     * Ocultamos temporalmente los botones
+     * Editar y Eliminar.
+     */
+    accionesPregunta.hidden = true;
+
+    const editor =
+        document.createElement("textarea");
+
+    editor.className = "editor-pregunta";
+    editor.rows = 3;
+    editor.value = pregunta.texto;
+
+    editor.setAttribute(
+        "aria-label",
+        "Editar pregunta"
+    );
+
+    const accionesEdicion =
+        document.createElement("div");
+
+    accionesEdicion.className =
+        "acciones-edicion-pregunta";
+
+    const botonGuardar =
+        document.createElement("button");
+
+    botonGuardar.type = "button";
+    botonGuardar.className =
+        "boton-guardar-pregunta";
+    botonGuardar.textContent = "Guardar";
+
+    const botonCancelar =
+        document.createElement("button");
+
+    botonCancelar.type = "button";
+    botonCancelar.className =
+        "boton-cancelar-edicion";
+    botonCancelar.textContent = "Cancelar";
+
+    /*
+     * Restaura la tarjeta al modo normal.
+     */
+    const restaurarVista = () => {
+        texto.innerHTML = "";
+        texto.textContent = pregunta.texto;
+
+        tarjeta.classList.remove("editando");
+        accionesPregunta.hidden = false;
+    };
+
+    botonCancelar.addEventListener(
+        "click",
+        restaurarVista
+    );
+
+    botonGuardar.addEventListener(
+        "click",
+        () => {
+            const nuevoTexto =
+                normalizarEspacios(
+                    editor.value
+                );
+
+            if (!nuevoTexto) {
+                mostrarMensaje(
+                    "La pregunta no puede quedar vacía.",
+                    "mensaje-error"
+                );
+
+                editor.focus();
+                return;
+            }
+
+            /*
+             * Actualiza el objeto almacenado
+             * en preguntasDetectadas.
+             */
+            pregunta.texto =
+                formatearPregunta(nuevoTexto);
+
+            pregunta.editada = true;
+
+            restaurarVista();
+
+            mostrarMensaje(
+                "La pregunta fue actualizada. " +
+                "Puedes generar nuevamente la respuesta.",
+                "mensaje-correcto"
+            );
+        }
+    );
+
+    /*
+     * Ctrl + Enter guarda.
+     * Escape cancela.
+     */
+    editor.addEventListener(
+        "keydown",
+        (evento) => {
+            if (
+                evento.key === "Enter" &&
+                (
+                    evento.ctrlKey ||
+                    evento.metaKey
+                )
+            ) {
+                evento.preventDefault();
+                botonGuardar.click();
+            }
+
+            if (evento.key === "Escape") {
+                evento.preventDefault();
+                botonCancelar.click();
+            }
+        }
+    );
+
+    accionesEdicion.appendChild(
+        botonGuardar
+    );
+
+    accionesEdicion.appendChild(
+        botonCancelar
+    );
+
+    texto.innerHTML = "";
+    texto.appendChild(editor);
+    texto.appendChild(accionesEdicion);
+
+    editor.focus();
+
+    editor.setSelectionRange(
+        editor.value.length,
+        editor.value.length
+    );
+}
 
 function solicitarEliminacionPregunta(
     preguntaId
