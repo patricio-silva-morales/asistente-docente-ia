@@ -51,6 +51,7 @@ La aplicación muestra en pantalla:
 - Respuestas adaptadas a estudiantes principiantes.
 - Campo configurable con el tema de la clase.
 - Eliminación de preguntas con confirmación.
+- Edición de preguntas detectadas (nuevo)
 - Copia de transcripción y preguntas.
 - Descarga de resultados en archivos `.txt`.
 - Procesamiento local sin depender de APIs pagadas.
