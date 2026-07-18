@@ -8,7 +8,7 @@ El proyecto utiliza `faster-whisper` para la transcripción y `Ollama` para la d
 
 ## Descripción
 
-Durante una clase remota, un docente puede recibir preguntas mediante audio en plataformas como Google Meet, Zoom, Microsoft Teams o BigBlueButton. Responder inmediatamente puede resultar difícil mientras se explica un contenido, se comparte pantalla o se revisa código.
+Durante una clase remota, un docente puede recibir preguntas mediante audio en plataformas como `Google Meet`, `Zoom`, `Microsoft Teams` o `BigBlueButton`. Responder inmediatamente puede resultar difícil mientras se explica un contenido, se comparte pantalla o se revisa código.
 
 TeachCopilot IA busca apoyar este proceso mediante el siguiente flujo:
 
