@@ -2,7 +2,7 @@
 
 TeachCopilot IA es una aplicación web de ejecución local diseñada para apoyar a docentes que realizan clases por videoconferencia. La aplicación captura audio desde el micrófono o desde una pestaña del navegador, transcribe el contenido, identifica preguntas formuladas durante la clase y genera respuestas breves mediante modelos de inteligencia artificial ejecutados localmente.
 
-El proyecto utiliza faster-whisper para la transcripción y Ollama para la detección de preguntas y la generación de respuestas. Todo el procesamiento se realiza en el equipo del usuario, por lo que no requiere servicios de pago ni claves de API externas.
+El proyecto utiliza `faster-whisper` para la transcripción y `Ollama` para la detección de preguntas y la generación de respuestas. Todo el procesamiento se realiza en el equipo del usuario, por lo que no requiere servicios de pago ni claves de API externas.
 
 ---
 
@@ -51,7 +51,7 @@ La aplicación muestra en pantalla:
 - Respuestas adaptadas a estudiantes principiantes.
 - Campo configurable con el tema de la clase.
 - Eliminación de preguntas con confirmación.
-- Edición de preguntas detectadas (nuevo)
+- Edición manual de preguntas detectadas.
 - Copia de transcripción y preguntas.
 - Descarga de resultados en archivos `.txt`.
 - Procesamiento local sin depender de APIs pagadas.
@@ -123,7 +123,7 @@ La aplicación muestra en pantalla:
 ## Estructura del proyecto
 
 ```text
-asistente-docente-ia/
+TeachCopilot-IA/
 ├── app.py
 ├── requirements.txt
 ├── Modelfile
@@ -171,8 +171,8 @@ El rendimiento dependerá del procesador, memoria y disponibilidad de GPU.
 ### 1. Clonar el repositorio
 
 ```bash
-git clone https://github.com/patricio-silva-morales/asistente-docente-ia.git
-cd asistente-docente-ia
+git clone https://github.com/patricio-silva-morales/TeachCopilot-IA.git
+cd TeachCopilot-IA
 ```
 
 ### 2. Crear un entorno virtual
@@ -618,7 +618,6 @@ Thumbs.db
 - Resumen de dudas al finalizar la clase.
 - Estadísticas por tema.
 - Marcado de preguntas respondidas.
-- Edición manual de preguntas.
 - Evaluación de calidad de respuestas.
 - Configuración de longitud y nivel de respuesta.
 - Integración directa con Zoom, Meet o Teams.
@@ -795,8 +794,6 @@ MIT License
 
 ## Autor
 
-Desarrollado como MVP educativo para explorar el uso de inteligencia artificial local en clases virtuales.
-
 ```text
 Nombre: Patricio Silva Morales
 Sitio web: https://www.giat.cl/
@@ -806,8 +803,10 @@ Correo: patricio.silva.morales@hotmail.com | psilv531@gmail.com
 
 ---
 
-## Resumen
+## Acerca del proyecto
 
-Asistente Docente IA es una aplicación web local que combina transcripción de audio, detección de preguntas y generación de respuestas breves. Su enfoque está orientado a docentes que necesitan apoyo durante clases virtuales sin depender de servicios externos de pago.
+TeachCopilot IA es una aplicación web de ejecución local que combina transcripción de audio, detección de preguntas y generación de respuestas breves. Está orientada a docentes que necesitan apoyo durante clases virtuales, sin depender de servicios externos de pago ni de claves de API.
+
+El proyecto también sirve como base experimental para explorar el uso de asistentes educativos, el procesamiento local de audio y la ejecución de modelos de lenguaje en equipos personales.
 
 El proyecto busca servir como base para experimentar con asistentes educativos, procesamiento local de audio y modelos de lenguaje ejecutados en equipos personales.
