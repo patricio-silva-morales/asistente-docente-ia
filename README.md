@@ -1,16 +1,16 @@
 # TeachCopilot IA
 
-TeachCopilot IA es una proyecto web creado como desarrollo web local orientada a docentes que realizan clases por videoconferencia. Captura audio desde el micrófono o desde una pestaña del navegador, transcribe el contenido, identifica preguntas formuladas durante la clase y genera respuestas breves mediante modelos de inteligencia artificial ejecutados localmente.
+TeachCopilot IA es una aplicación web de ejecución local diseñada para apoyar a docentes que realizan clases por videoconferencia. La aplicación captura audio desde el micrófono o desde una pestaña del navegador, transcribe el contenido, identifica preguntas formuladas durante la clase y genera respuestas breves mediante modelos de inteligencia artificial ejecutados localmente.
 
-El proyecto utiliza `faster-whisper` para la transcripción y Ollama para la clasificación de preguntas y la generación de respuestas. No requiere servicios de pago ni claves de API externas.
+El proyecto utiliza faster-whisper para la transcripción y Ollama para la detección de preguntas y la generación de respuestas. Todo el procesamiento se realiza en el equipo del usuario, por lo que no requiere servicios de pago ni claves de API externas.
 
 ---
 
 ## Descripción
 
-Durante una clase remota, un docente puede recibir preguntas mediante audio en plataformas como Google Meet, Zoom, Microsoft Teams o BigBlueButton. Responder inmediatamente puede ser difícil cuando se está explicando, compartiendo pantalla o revisando código.
+Durante una clase remota, un docente puede recibir preguntas mediante audio en plataformas como Google Meet, Zoom, Microsoft Teams o BigBlueButton. Responder inmediatamente puede resultar difícil mientras se explica un contenido, se comparte pantalla o se revisa código.
 
-Asistente Docente IA busca apoyar ese proceso mediante el siguiente flujo:
+TeachCopilot IA busca apoyar este proceso mediante el siguiente flujo:
 
 ```text
 Audio de la clase
